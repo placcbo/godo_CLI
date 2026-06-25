@@ -7,29 +7,15 @@ type Todo struct {
 	Title string
 	Done  bool
 }
-
 type TodoList struct {
 	items  []Todo
 	nextID int
 }
 
-func NewTodoList() *TodoList {
-	return &TodoList{items: []Todo{}, nextID: 1}
-}
-
-func (tl *TodoList) Add(title string) Todo {
-	t := Todo{ID: tl.nextID, Title: title}
-	tl.items = append(tl.items, t)
-	tl.nextID++
-	return t
-}
-
 func main() {
-	list := NewTodoList()
+	list := TodoList{items: []Todo{}}
+	list.items = append(list.items, Todo{1, "learn go", true})
+	list.items = append(list.items, Todo{2, "buy milk", false})
+	fmt.Println(list.items[0].Title)
 
-	t := list.Add("Learn Go")
-
-	fmt.Println("added:", t)
-	fmt.Println("all items:", list.items)
-	fmt.Println("next ID:", list.nextID)
 }
