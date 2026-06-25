@@ -20,19 +20,31 @@ func NewTodoList() *TodoList {
 	}
 }
 
-func (t1 *TodoList) Add(title string) {
+func (t1 *TodoList) Add(title string) Todo {
 	todo := Todo{
-		ID:    t1.nextID,
 		Title: title,
+		ID:    t1.nextID,
 	}
-
 	t1.items = append(t1.items, todo)
-	fmt.Println(todo)
+	t1.nextID++
+	return todo
+}
+
+func (t1 *TodoList) MarkDone(id int) error {
+	for i := range t1.items {
+		if t1.items[i].ID == id {
+			t1.items[i].Done = true
+			return nil
+		}
+	}
+		return fmt.Errorf("todo %d not found", id)
 }
 
 func main() {
 	todos := NewTodoList()
-	todos.Add("Learn Go")
-
-	fmt.Println(todos.items)
+	todos.Add("learn go")
+	todos.Add("Build API")
+	todos.MarkDone(20)
+	err := todos.MarkDone(99)
+	fmt.Println(err)
 }
