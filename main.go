@@ -2,20 +2,23 @@ package main
 
 import "fmt"
 
-type Todo struct {
-	ID    int
-	Title string
-	Done  bool
+type Box struct {
+	n int
 }
-type TodoList struct {
-	items  []Todo
-	nextID int
+
+func incByValue(b Box) {
+	b.n++
+}
+func incByPointer(b *Box) {
+	b.n++
 }
 
 func main() {
-	list := TodoList{items: []Todo{}}
-	list.items = append(list.items, Todo{1, "learn go", true})
-	list.items = append(list.items, Todo{2, "buy milk", false})
-	fmt.Println(list.items[0].Title)
+	box := Box{n: 1}
+	incByValue(box)
 
+	fmt.Println(box)
+
+	incByPointer(&box)
+	fmt.Println(box)
 }
